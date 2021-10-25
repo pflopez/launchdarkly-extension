@@ -1,0 +1,17 @@
+{
+  "name": "Launch Darkly Flags",
+  "version": "0.1",
+  "description": "A panel that shows your current flags and values",
+  "short_name": "launch darkly flags",
+  "icons": {
+    "16": "./assets/logo.png",
+    "48": "./assets/logo.png",
+    "128": "./assets/logo.png"
+  },
+  "devtools_page": "devtools.html",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["activeTab"],
+  "manifest_version": 2
+}
