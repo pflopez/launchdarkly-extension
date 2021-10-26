@@ -9,7 +9,7 @@ body {
 
 
 .grid {
-  padding: 10px 5px;
+  padding: 10px 10px;
 }
 
 .sticky{
@@ -32,7 +32,7 @@ body {
 }
 
 .details {
-  margin-left: 21px;
+  display: none;
 }
 
 pre {
@@ -42,3 +42,11 @@ pre {
   margin: 10px 0;
 }
 
+
+.flag-data {
+
+}
+
+.visible {
+  display: initial;
+}

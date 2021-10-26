@@ -7,7 +7,6 @@ chrome.devtools.panels.create(
     'panel.html',
     function (panel) {
         panel.onShown.addListener( extPanelWindow => {
-            console.log('panel shown!', flagsBody);
             chrome.runtime.sendMessage({
                 flags: flagsBody
             });

@@ -47,11 +47,16 @@ class LaunchDarklyTool {
                     <div class="header">${key}</div>
                     <div class="description code">${val}</div>
                 </div>
-                <div class="details hidden">${valueHtml}</div>
+                <div class="details">${valueHtml}</div>
             </div>`);
             node.find('.content').on('click', function (event) {
-                $('.details').addClass('hidden');
-                $(this).parent().find('.details').toggleClass('hidden');
+                const thisDetails = $(this).parent().find('.details');
+                const isVisible = thisDetails.hasClass('visible');
+                $('.details').removeClass('visible');
+                if(!isVisible){
+                    $(this).parent().find('.details').addClass('visible');
+                }
+
             });
 
             return node;
@@ -69,8 +74,7 @@ class LaunchDarklyTool {
                         <td><pre>${JSON.stringify(values[key], null, 2)}</pre></td>
                     </tr>`;
         }).join('');
-console.log(rows);
-        return `<table class="ui very small table unstackable compact striped"><tbody>
+        return `<table class="ui very small table unstackable compact striped flag-data"><tbody>
                    ${rows}
                 </tbody></table>`;
     }
