@@ -8,22 +8,22 @@ chrome.devtools.panels.create(
     function (panel) {
         panel.onShown.addListener( extPanelWindow => {
             chrome.runtime.sendMessage({
-                flags: flagsBody
+                flags: flagsBody,
+                tabId: chrome.devtools.inspectedWindow.tabId,
             });
 
         })
     }
 );
 
-
-// esto anda, bien nosotro
 chrome.devtools.network.onRequestFinished.addListener(request => {
 
     if (request?.request?.url?.startsWith('https://app.launchdarkly.com/sdk/')) {
         request.getContent((body) => {
             flagsBody = body;
             chrome.runtime.sendMessage({
-                flags: flagsBody
+                flags: flagsBody,
+                tabId: chrome.devtools.inspectedWindow.tabId,
             });
         });
 

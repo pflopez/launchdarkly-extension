@@ -31,7 +31,9 @@ class LaunchDarklyTool {
 
     clearSearch(){
         $('.prompt').val('');
-        this.renderFlags(Object.keys(this.flags));
+        if(this.flags){
+            this.renderFlags(Object.keys(this.flags));
+        }
     }
 
     setFlags(flags) {
@@ -82,6 +84,11 @@ class LaunchDarklyTool {
         $("#flags").html(nodes);
     }
 
+    clearFlags(){
+        this.flags = null;
+        $("#flags").html('No flags captured');
+    }
+
     valuesHtml(key) {
         const values = this.flags[key];
 
@@ -101,16 +108,26 @@ class LaunchDarklyTool {
 
 const mixpanelTool = new LaunchDarklyTool();
 
+function sameTab(tabId){
+    return chrome.devtools.inspectedWindow.tabId === tabId;
+}
 
 //Handler request from background page
 chrome.extension.onMessage.addListener(function (message, sender) {
-    if (message.flags) {
-        mixpanelTool.setFlags(JSON.parse(message.flags));
+    if (sameTab(message.tabId)) {
+        if(message.flags){
+            mixpanelTool.setFlags(JSON.parse(message.flags));
+        }else{
+            mixpanelTool.clearFlags();
+        }
+
+
         if (mixpanelTool.isReady) {
             mixpanelTool.start();
         }
+    }else{
+        console.log('not on the same tab');
     }
-    chrome.extension.sendMessage('cool');
     return true;
 });
 
@@ -118,3 +135,4 @@ chrome.extension.onMessage.addListener(function (message, sender) {
 $(function () {
     mixpanelTool.start();
 });
+

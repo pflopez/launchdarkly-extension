@@ -8,7 +8,7 @@ body {
 }
 
 
-.grid {
+.flags-container {
   padding: 10px 10px;
 }
 
@@ -43,9 +43,6 @@ pre {
 }
 
 
-.flag-data {
-
-}
 
 .visible {
   display: initial;
