@@ -11,9 +11,27 @@ class LaunchDarklyTool {
             $('.prompt')
                 .off('keyup')
                 .on('keyup', (s) => {
-                    this.filterFlags($('.prompt').val());
+
+                    const val = $('.prompt').val();
+                    this.filterFlags(val);
+                    if(val){
+                        $('#clear-search').removeClass('hidden');
+                    }else{
+                        $('#clear-search').addClass('hidden');
+                    }
+                });
+            $('#clear-search')
+                .off('click')
+                .on('click', (s) => {
+                    this.clearSearch();
+                    $('#clear-search').addClass('hidden');
                 });
         });
+    }
+
+    clearSearch(){
+        $('.prompt').val('');
+        this.renderFlags(Object.keys(this.flags));
     }
 
     setFlags(flags) {
@@ -54,7 +72,7 @@ class LaunchDarklyTool {
                 const isVisible = thisDetails.hasClass('visible');
                 $('.details').removeClass('visible');
                 if(!isVisible){
-                    $(this).parent().find('.details').addClass('visible');
+                    thisDetails.addClass('visible');
                 }
 
             });

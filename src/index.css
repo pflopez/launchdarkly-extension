@@ -50,3 +50,12 @@ pre {
 .visible {
   display: initial;
 }
+
+.icon.hidden {
+  display: none;
+}
+
+#clear-search{
+  pointer-events: initial;
+  cursor: pointer;
+}
