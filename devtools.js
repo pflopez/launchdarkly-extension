@@ -7,10 +7,10 @@ chrome.devtools.panels.create(
     'panel.html',
     function (panel) {
         panel.onShown.addListener( extPanelWindow => {
-            console.log('panel shown!');
+            console.log('panel shown!', flagsBody);
             chrome.runtime.sendMessage({
                 flags: flagsBody
-            }, (response) => {});
+            });
 
         })
     }
@@ -23,6 +23,11 @@ chrome.devtools.network.onRequestFinished.addListener(request => {
     if (request?.request?.url?.startsWith('https://app.launchdarkly.com/sdk/')) {
         request.getContent((body) => {
             flagsBody = body;
+            chrome.runtime.sendMessage({
+                flags: flagsBody
+            });
         });
+
+
     }
 });
